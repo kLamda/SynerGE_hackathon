@@ -1,0 +1,89 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Register {% endblock %}
+
+{% block content %} 
+
+	<div class="auth-wrapper">
+		<div class="auth-content">
+			<div class="card" id="reg">
+				<div class="row align-items-center text-center">
+					<div class="col-md-12">
+						<div class="card-body">
+							<img src="/static/assets/images/logo-dark.png" alt="" class="img-fluid mb-4">
+							<h4 class="mb-3 f-w-400" style="color: #02F4F2;">
+								Team NOAH
+							</h4>
+							<span class="mb-0 text-muted" style="color: #02F4F2;">
+								{% if msg %}
+									{{ msg | safe }}
+								{% else %}
+									Add your credentials
+								{% endif %}
+							</span>
+							<p> <br /> </p>		
+
+							{% if not success %}
+								<form role="form" method="post" action="">
+
+									{% csrf_token %}  
+															
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"><i class="feather icon-user"></i></span>
+										</div>
+										{{ form.username }}
+									</div>
+									<span class="text-error">{{ form.username.errors }}</span>
+
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text"><i class="feather icon-mail"></i></span>
+										</div>
+										{{ form.email }}
+									</div>
+									<span class="text-error">{{ form.email.errors }}</span>
+
+									<div class="input-group mb-4">
+										<div class="input-group-prepend">
+											<span class="input-group-text"><i class="feather icon-lock"></i></span>
+										</div>
+										{{ form.password1 }}
+									</div>
+									<span class="text-error">{{ form.password1.errors }}</span>
+
+									<div class="input-group mb-4">
+										<div class="input-group-prepend">
+											<span class="input-group-text"><i class="feather icon-lock"></i></span>
+										</div>
+										{{ form.password2 }}
+									</div>
+									<span class="text-error">{{ form.password2.errors }}</span>
+									
+									<div class="form-group text-left mt-2">
+										<div class="checkbox checkbox-primary d-inline">
+											<input type="checkbox" name="checkbox-fill-2" id="checkbox-fill-2" checked="">
+											<label for="checkbox-fill-2" class="cr" style="color: #02F4F2;">I agree with <a href="#" style="color: #02F4F2;">terms</a>.</label>
+										</div>
+									</div>
+									<button type="submit" name="register" class="btn btn-primary btn-block mb-4" style="background-color: #F33271;">Sign up</button>
+								
+								</form>
+
+								<p class="mb-0 text-muted">Have an account? <a href={% url 'login' %} class="f-w-400" style= "color: #fff">Login</a></p>
+							{% endif %}
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}
+
+{% block javascripts %}
+
+	<script src="/static/assets/js/waves.min.js"></script>
+
+{% endblock javascripts %} 

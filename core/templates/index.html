@@ -1,0 +1,1413 @@
+{% extends "layouts/base.html" %}
+{% block title %} Dashboard {% endblock %}
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}	
+<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_o5hd5vvqpoqiwwmi.css">
+    <div class="pcoded-main-container">
+        <div class="pcoded-content">
+            <div class="row">
+                <div class="col-xl-12" style="margin-bottom: 25px;">
+					<div class="card-group" style="color: white;">
+						<div class="card" style="background-color: #192028;">
+							<img class="img-fluid card-img-top" src="/static/assets/images/slider/automated.png" alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title" style="color: #02F4F2;">Automated</h5>
+								<p class="card-text">This solution is a fully automated solution that generates and shows results with complete automation.</p>
+							</div>
+						</div>
+						<div class="card" style="background-color: #192028;">
+							<img class="img-fluid card-img-top" src="/static/assets/images/slider/UI.png" alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title" style="color: #02F4F2;">Interactive UI</h5>
+								<p class="card-text">This is an easy to use interactive UI which can be used seamlessly.</p>
+							</div>
+						</div>
+						<div class="card" style="background-color: #192028;">
+							<img class="img-fluid card-img-top" src="/static/assets/images/slider/scalable.jpg" alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title" style="color: #02F4F2;">Scalable</h5>
+								<p class="card-text">This solution is very much scalable to generated customized Insights from diverse web based data.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="card bg-c-yellow order-card">
+                        <div class="card-body">
+                            <h6 class="text-white">Raw Data</h6>
+                            <h2 class="text-right text-white"><i class="feather icon-database float-left"></i><span>{{data_received}}</span></h2>
+                            <p class="m-b-0">Processed Data<span class="float-right">{{processed_data}}</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="card bg-c-green order-card">
+                        <div class="card-body">
+                            <h6 class="text-white">Scraping</h6>
+                            <h2 class="text-right text-white"><i class="feather icon-clock float-left"></i><span id="scrap_countdown">24h0m0s</span></h2>
+                            <p class="m-b-0">Scraped<span class="float-right">{{last_scrap_date}}</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="card bg-c-red order-card">
+                        <div class="card-body">
+                            <h6 class="text-white">Model Training</h6>
+                            <h2 class="text-right text-white"><i class="feather icon-calendar float-left"></i><span style="font-size: 24px;">{{trained_time}}</span></h2>
+                            <p class="m-b-0">Updates in<span class="float-right" id="train_countdown" style="font-size: 18px">7d0h0m0s</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="card bg-c-blue order-card">
+                        <div class="card-body">
+                            <h6 class="text-white">Today</h6>
+                            <h2 class="text-right text-white"><i class="feather icon-calendar float-left"></i><span id="time">$9,562</span></h2>
+                            <p class="m-b-0">Date<span class="float-right" id="date">$542</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xl-6 dash-main">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Historical Data</h5>
+                        </div>
+                        <div class="card-body pl-0 pb-0">
+                            <div id="historical_data"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xl-6 dash-main">
+                    <div class="row">
+                        <div class="col-lg-6 d-lg-block d-none">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body bg-patern-white">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span>Data Stats</span>
+                                        </div>
+                                        <div class="col text-right">
+                                            <h2 class="mb-0 text-white">{{both_month}}</h2>
+                                            <span class="text-white">{{difference}}%<i class="feather icon-trending-down ml-1"></i></span>
+                                        </div>
+                                    </div>
+                                    <div id="customer-chart1"></div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <h3 class="m-0 text-white"><i class="fas fa-circle f-10 m-r-5 text-success"></i>{{current_month_data}}</h3>
+                                            <span class="ml-3">{{current_month}}</span>
+                                        </div>
+                                        <div class="col">
+                                            <h3 class="m-0 text-white"><i class="fas fa-circle f-10 m-r-5 text-white"></i>{{prev_month_data}}</h3>
+                                            <span class="ml-3">{{prev_month}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card bg-c-red">
+                                <div class="card-body">
+                                    <h6>Latest News</h6>
+                                    <div class="embed-responsive embed-responsive-1by1">
+										<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ufSX0bjhtlo" allowfullscreen></iframe>
+									</div>
+								</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 dash-main" id="equipment_history">
+                    <div class="card" >
+                        <div class="card-header">
+                            <h5>Equipment History</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="equipment-history"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 dash-main">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Region Wise Data</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="region_data"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 dash-main">
+                    <div class="card" style="background-color : #67696A;">
+                        <div class="card-body text-center" >
+                            <i class="fa fa-envelope-open text-c-blue d-block f-40"></i>
+                            <h4 class="m-t-20" style="color: white"><span class="text-c-blue">1.92k</span> Unseen</h4>
+                            <p class="m-b-20" style="color: white">Your inbox is growing</p>
+                            <a style="decoration:none; color: white;" href="https://www.google.com/gmail/" target="_blank">
+                                <button class="btn btn-primary btn-sm btn-round">
+                                    Open Inbox
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card" style="background-color : #67696A;">
+                        <div class="card-body text-center" >
+                            <i class="fab fa-twitter text-c-green d-block f-40"></i>
+                            <h4 class="m-t-20" style="color:white"><span class="text-c-green">+40</span> Followers</h4>
+                            <p class="m-b-20" style="color:white">Your social coverage is growing</p>
+                            <a style="decoration:none; color: white;" href="https://twitter.com/?lang=en" target="_blank">
+                                <button class="btn btn-success btn-sm btn-round">
+                                    Check them out
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 dash-main">
+                    <div class="card" >
+                        <div class="card-header">
+                            <h5>Tommorrow's Equipment Prediction</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="tom-equipment"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7 dash-main">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Equipment Comparison</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="bar-chart-comp-equipment"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7 dash-main">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>State Comparison</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="bar-chart-comp-state"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 dash-main">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Tommorrow's State Prediction</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="tom-state" style="width:100%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 predictor-state">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Prediction on the basis of state</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="state-predictor"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 predictor">
+                    <div class="input-group mb-3 predictor-state">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="state_day_option">Options</label>
+                        </div>
+                        <select class="custom-select" id="state_day_option">
+                            <option selected value="0">Choose Day</option>
+                            <option value="1">One Day</option>
+                            <option value="2">Two Days</option>
+                            <option value="3">Three Days</option>
+                            <option value="4">Four Days</option>
+                            <option value="5">Five Days</option>
+                            <option value="6">Six Days</option>
+                            <option value="7">Seven Days</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3 predictor-equipment">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="equipment_day_option">Options</label>
+                        </div>
+                        <select class="custom-select" id="equipment_day_option">
+                            <option selected value="0">Choose Day</option>
+                            <option value="1">One Day</option>
+                            <option value="2">Two Days</option>
+                            <option value="3">Three Days</option>
+                            <option value="4">Four Days</option>
+                            <option value="5">Five Days</option>
+                            <option value="6">Six Days</option>
+                            <option value="7">Seven Days</option>
+                        </select>
+                    </div>
+                    <div class="card" style="background-color : #67696A;">
+                        <div class="card-body text-center">
+                            <i class="fa fa-envelope-open text-c-blue d-block f-40"></i>
+                            <h4 class="m-t-20"><span class="text-c-blue">1.92k</span> Unseen</h4>
+                            <p class="m-b-20">Your inbox is growing</p>
+                            <a style="decoration:none; color: white;" href="https://www.google.com/gmail/" target="_blank">
+                                <button class="btn btn-primary btn-sm btn-round">
+                                    Open Inbox
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card" style="background-color : #67696A;">
+                        <div class="card-body text-center">
+                            <i class="fab fa-twitter text-c-green d-block f-40"></i>
+                            <h4 class="m-t-20"><span class="text-c-blgreenue">+40</span> Followers</h4>
+                            <p class="m-b-20">Your Social coverage is growing</p>
+                            <a style="decoration:none; color: white;" href="https://twitter.com/?lang=en" target="_blank">
+                                <button class="btn btn-success btn-sm btn-round">
+                                    Check them out
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 predictor-equipment">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Prediction on the basis of equipments</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="equipment-predictor"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 predictor-state">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>State History</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="state-history-date"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 predictor-equipment">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Equipment History</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="equipment-history-date"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="show-csv col-sm-12" style="color: white;">
+                    <div class="card" style="background-color: #192028;">
+                        <div class="card-header">
+                        <h5 style="color:#02F4F2; ">Filtered Equipment Data</h5>
+                        </div>
+                        <div class="card-body">
+                            <table>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Surgery</th>
+                                    <th>Scanner</th>
+                                    <th>Ventilator</th>
+                                    <th>Microscope</th>
+                                </tr>
+                            {% for item in equi_csv %}
+                                <tr>
+                                    {% for item1 in item %}
+                                        <td>{{item1}}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                            </table>
+                        </div>
+                        <div class="card-header">
+                    <h5 style="color: #02F4F2;">Filtered Place Data</h5>
+                        </div>
+                        <div class="card-body">
+                        <table>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Delhi</th>
+                                    <th>Uttar Pradesh</th>
+                                    <th>Maharastra</th>
+                                    <th>Rajasthan</th>
+                                    <th>West Bengal</th>
+                                </tr>
+                            {% for item in place_csv %}
+                                <tr>
+                                    {% for item1 in item %}
+                                        <td>{{item1}}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+{% endblock content %}
+{% block javascripts %}
+
+        <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+        <script>
+        'use strict';
+
+function showCSV(){
+            $(".show-csv").show();
+            $(".predictor-state").hide();
+            $(".predictor-equipment").hide();
+            $(".predictor").hide();
+            $(".dash-main").hide();
+        }
+
+        $(document).ready(function() {
+            $(".show-csv").hide();
+            $(".predictor-state").hide();
+            $(".predictor-equipment").hide();
+            $(".predictor").hide();
+            var options1 = {
+                chart: {
+                    height: 130,
+                    type: 'donut',
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '75%'
+                        }
+                    }
+                },
+                labels: ['New', 'Return'],
+                series: [20, 15],
+                legend: {
+                    show: false
+                },
+                tooltip: {
+                    theme: 'dark'
+                },
+                grid: {
+                    padding: {
+                        top: 20,
+                        right: 0,
+                        bottom: 0,
+                        left: 0
+                    },
+                },
+                colors: ["#fff", "#2ed8b6"],
+                fill: {
+                    opacity: [1, 1]
+                },
+                stroke: {
+                    width: 0,
+                }
+            }
+            options1['labels']= ["{{prev_month|safe}}", "{{current_month|safe}}"]
+            options1['series']= [{{prev_month_data|safe}}, {{current_month_data|safe}}]
+            var chart = new ApexCharts(document.querySelector("#customer-chart1"), options1);
+            chart.render();
+            var chart1_equipment = {
+                        chart: {
+                            height: 300,
+                            type: 'line',
+                            zoom: {
+                                enabled: false
+                            },
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        stroke: {
+                            width: [5, 7, 5, 3],
+                            curve: 'smooth',
+                        },
+                        colors: ["#0e9e4a", "#FFB64D", "#FF5370", "#0F1370"],
+                        fill: {
+                            type: "gradient",
+                            gradient: {
+                                shade: 'light'
+                            },
+                        },
+                        series: [{
+                                name: "Session Duration",
+                                data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+                            },
+                            {
+                                name: "Page Views",
+                                data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35]
+                            },
+                            {
+                                name: 'Total Visits',
+                                data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
+                            },
+                            {
+                                name: '',
+                                data: []
+                            }
+                        ],
+                        title: {
+                            text: 'Page Statistics',
+                            align: 'left'
+                        },
+                        markers: {
+                            size: 0,
+
+                            hover: {
+                                sizeOffset: 6
+                            }
+                        },
+                        xaxis: {
+                            categories: [],
+                        },
+                        tooltip: {
+                            y: [{
+                                title: {
+                                    formatter: function(val) {
+                                        return val
+                                    }
+                                }
+                            }, {
+                                title: {
+                                    formatter: function(val) {
+                                        return val
+                                    }
+                                }
+                            }, {
+                                title: {
+                                    formatter: function(val) {
+                                        return val
+                                    }
+                                }
+                            }, {
+                                title: {
+                                    formatter: function(val) {
+                                        return val;
+                                    }
+                                }
+                            }]
+                        },
+                        grid: {
+                            borderColor: '#f1f1f1',
+                        }
+                    };
+            chart1_equipment['series'][0]['name'] = "Surgery";
+            chart1_equipment['series'][0]['data'] = {{eh_surgery|safe}};
+            chart1_equipment['series'][1]['name'] = "Scanner";
+            chart1_equipment['series'][1]['data'] = {{eh_scanner|safe}};
+            chart1_equipment['series'][2]['name'] = "Ventilator";
+            chart1_equipment['series'][2]['data'] = {{eh_ventilator|safe}};
+            chart1_equipment['series'][3]['name'] = "Microscope";
+            chart1_equipment['series'][3]['data'] = {{eh_microscope|safe}};
+            chart1_equipment['xaxis']['categories'] = {{eh_month|safe}};
+            $(function() {
+                    $("#equipment-history").empty();
+                    var chart = new ApexCharts(
+                        document.querySelector("#equipment-history"),
+                        chart1_equipment
+                    );
+                    chart.render();
+                });
+            var reg_data = {
+                        chart: {
+                            height: 340,
+                            type: 'bar',
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                columnWidth: '55%',
+                                endingShape: 'rounded'
+                            },
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        colors: ["#0e9e4a", "#4099ff", "#FF5370", "#FF13F0", "#0F5F70"],
+                        stroke: {
+                            show: true,
+                            width: 1.5,
+                            colors: ['transparent']
+                        },
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                shade: 'light',
+                                type: "vertical",
+                                shadeIntensity: 0.25,
+                                inverseColors: true,
+                                opacityFrom: 1,
+                                opacityTo: 0.7,
+                                stops: [50, 100]
+                            },
+                        },
+                        series: [{
+                            name: 'Net Profit',
+                            data: [44, 55, 57, 56, 61, 58, 63]
+                        }, {
+                            name: 'Revenue',
+                            data: [76, 85, 101, 98, 87, 105, 91]
+                        }, {
+                            name: 'Free Cash Flow',
+                            data: [35, 41, 36, 26, 45, 48, 52]
+                        }, {
+                            name: 'Free Cash Flow',
+                            data: [35, 41, 36, 26, 45, 48, 52]
+                        }, {
+                            name: 'Free Cash Flow',
+                            data: [35, 41, 36, 26, 45, 48, 52]
+                        }],
+                        xaxis: {
+                            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+                        },
+                        yaxis: {
+                            title: {
+                                text: ''
+                            }
+                        },
+                        tooltip: {
+                            y: {
+                                formatter: function(val) {
+                                    return val
+                                }
+                            }
+                        }
+                    };
+            reg_data['xaxis']['categories'] = {{sh_month|safe}};
+            reg_data['series'][0]['name'] = "Delhi";
+            reg_data['series'][0]['data'] = {{sh_delhi|safe}};
+            reg_data['series'][1]['name'] = "Uttar Pradesh";
+            reg_data['series'][1]['data'] = {{sh_up|safe}};
+            reg_data['series'][2]['name'] = "Maharastra";
+            reg_data['series'][2]['data'] = {{sh_maharastra|safe}};
+            reg_data['series'][3]['name'] = "Rajasthan";
+            reg_data['series'][3]['data'] = {{sh_rajasthan|safe}};
+            reg_data['series'][4]['name'] = "West Bengal";
+            reg_data['series'][4]['data'] = {{sh_bengal|safe}};
+            $(function() {
+                    var chart = new ApexCharts(
+                        document.querySelector("#region_data"),
+                        reg_data
+                    );
+                    chart.render();
+                });
+                var h_data = {
+                    chart: {
+                        height: 230,
+                        type: 'line',
+                        toolbar: {
+                            show: false,
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        width: 2,
+                        curve: 'smooth'
+                    },
+                    series: [{
+                        name: 'Tender Data',
+                        data: [60, 30, 65, 45, 67, 35]
+                    }],
+                    legend: {
+                        position: 'top',
+                    },
+                    xaxis: {
+                        categories: ['January', 'February', 'March', 'April', 'June', 'May'],
+                        axisBorder: {
+                            show: false,
+                        },
+                        label: {
+                            style: {
+                                color: '#ccc'
+                            }
+                        },
+                    },
+                    yaxis: {
+                        show: true,
+                        labels: {
+                            style: {
+                                color: '#ccc'
+                            }
+                        }
+                    },
+                    colors: ['#73b4ff', '#59e0c5'],
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            shade: 'light',
+                            gradientToColors: ['#4099ff', '#2ed8b6'],
+                            shadeIntensity: 0.5,
+                            type: 'horizontal',
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                            stops: [0, 100]
+                        },
+                    },
+                    markers: {
+                        size: 5,
+                        colors: ['#4099ff', '#2ed8b6'],
+                        opacity: 0.9,
+                        strokeWidth: 2,
+                        hover: {
+                            size: 7,
+                        }
+                    },
+                    grid: {
+                        borderColor: '#cccccc3b',
+                    }
+                };
+                h_data['series'][0]['data'] = {{eh_total|safe}};
+                h_data['xaxis']['categories'] = {{eh_month|safe}};
+                $(function() {
+                    var chart = new ApexCharts(document.querySelector("#historical_data"), h_data);
+                    chart.render();
+                });
+                var comp_equipment = {
+                        chart: {
+                            height: 250,
+                            type: 'bar',
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: true,
+                                dataLabels: {
+                                    position: 'top',
+                                },
+                            }
+                        },
+                        colors: ["#4099ff", "#0e9e4a"],
+                        dataLabels: {
+                            enabled: true,
+                            offsetX: -6,
+                            style: {
+                                fontSize: '12px',
+                                colors: ['#fff']
+                            }
+                        },
+                        stroke: {
+                            show: true,
+                            width: 1,
+                            colors: ['#fff']
+                        },
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                shade: 'light',
+                                type: "horizontal",
+                                shadeIntensity: 0.25,
+                                inverseColors: true,
+                                opacityFrom: 0.8,
+                                opacityTo: 1,
+                                stops: [0, 100]
+                            },
+                        },
+                        series: [{
+                            name: "Before 7 days",
+                            data: [44, 55, 41, 64]
+                        }, {
+                            name: "After 7 days",
+                            data: [53, 32, 33, 52]
+                        }],
+                        xaxis: {
+                            categories: ["Surgery", "Scanner", "Ventilator", "Microscope"],
+                        },
+                    };
+                    comp_equipment['series'][0]['data'] = {{before_equipment|safe}};
+                    comp_equipment['series'][1]['data'] = {{after_equipment|safe}};
+                $(function() {
+
+                    var chart = new ApexCharts(
+                        document.querySelector("#bar-chart-comp-equipment"),
+                        comp_equipment
+                    );
+                    chart.render();
+                });
+                var comp_state = {
+                        chart: {
+                            height: 250,
+                            type: 'bar',
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: true,
+                                dataLabels: {
+                                    position: 'top',
+                                },
+                            }
+                        },
+                        colors: ["#4099ff", "#0e9e4a"],
+                        dataLabels: {
+                            enabled: true,
+                            offsetX: -6,
+                            style: {
+                                fontSize: '12px',
+                                colors: ['#fff']
+                            }
+                        },
+                        stroke: {
+                            show: true,
+                            width: 1,
+                            colors: ['#fff']
+                        },
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                shade: 'light',
+                                type: "horizontal",
+                                shadeIntensity: 0.25,
+                                inverseColors: true,
+                                opacityFrom: 0.8,
+                                opacityTo: 1,
+                                stops: [0, 100]
+                            },
+                        },
+                        series: [{
+                            name: "Before 7 days",
+                            data: [44, 55, 41, 64]
+                        }, {
+                            name: "After 7 days",
+                            data: [53, 32, 33, 52]
+                        }],
+                        xaxis: {
+                            categories: ["Delhi", "Uttar Pradesh", "Maharastra", "Rajasthan", "West Bengal"],
+                        },
+                    };
+                    comp_state['series'][0]['data'] = {{before_place|safe}};
+                    comp_state['series'][1]['data'] = {{after_place|safe}};
+                $(function() {
+                    var chart = new ApexCharts(
+                        document.querySelector("#bar-chart-comp-state"),
+                        comp_state
+                    );
+                    chart.render();
+                });
+                var tom_equipment = {
+                        chart: {
+                            height: 300,
+                            type: 'radialBar',
+                        },
+                        plotOptions: {
+                            radialBar: {
+                                offsetY: -30,
+                                startAngle: 0,
+                                endAngle: 270,
+                                hollow: {
+                                    margin: 5,
+                                    size: '30%',
+                                    background: 'transparent',
+                                    image: undefined,
+                                },
+                                dataLabels: {
+                                    name: {
+                                        show: false,
+
+                                    },
+                                    value: {
+                                        show: false,
+                                    }
+                                }
+                            }
+                        },
+                        colors: ["#4099ff", "#0e9e4a", "#FFB64D", "#FF5370"],
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                shade: 'light',
+                                type: 'vertical',
+                                shadeIntensity: 0.25,
+                                inverseColors: true,
+                                opacityFrom: 1,
+                                opacityTo: 0.7,
+                                stops: [10, 100]
+                            }
+                        },
+                        series: [76, 67, 61, 90],
+                        labels: ['Surgery', 'Scanner', 'Ventilator', 'Microscope'],
+                        legend: {
+                            show: true,
+                            floating: true,
+                            fontSize: '16px',
+                            position: 'left',
+                            offsetX: 0,
+                            offsetY: 0,
+                            labels: {
+                                useSeriesColors: true,
+                            },
+                            markers: {
+                                size: 0
+                            },
+                            formatter: function(seriesName, opts) {
+                                return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+                            },
+                            itemMargin: {
+                                horizontal: 1,
+                            }
+                        },
+                        responsive: [{
+                            breakpoint: 480,
+                            options: {
+                                legend: {
+                                    show: false
+                                }
+                            }
+                        }]
+                    }
+
+                $(function() {
+                    tom_equipment['series'] = {{tom_equip|safe}};
+                    var chart = new ApexCharts(
+                        document.querySelector("#tom-equipment"),
+                        tom_equipment
+                    );
+                    chart.render();
+                });
+                var tom_state = {
+                        chart: {
+                            height: 270,
+                            type: 'pie',
+                        },
+                        labels: ['Delhi', 'Uttar Pradesh', 'Maharastra', 'Rajasthan', 'West Bengal'],
+                        series: [44, 55, 13, 43, 22],
+                        colors: ["#4099ff", "#0e9e4a", "#00bcd4", "#FFB64D", "#FF5370"],
+                        legend: {
+                            show: true,
+                            position: 'bottom',
+                        },
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                shade: 'light',
+                                inverseColors: true,
+                            }
+                        },
+                        dataLabels: {
+                            enabled: true,
+                            dropShadow: {
+                                enabled: false,
+                            }
+                        },
+                        responsive: [{
+                            breakpoint: 480,
+                            options: {
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }]
+                    }
+                $(function() {
+                    tom_state['series'] = {{tom_state|safe}};
+                    var chart = new ApexCharts(
+                        document.querySelector("#tom-state"),
+                        tom_state
+                    );
+                    chart.render();
+                });
+        });
+
+        var equipment_predictor = {
+                    chart: {
+                        height: 390,
+                        type: 'bar',
+                        stacked: true,
+                        toolbar: {
+                            show: true
+                        },
+                        zoom: {
+                            enabled: true
+                        }
+                    },
+                    colors: ["#4099ff", "#0e9e4a", "#FFB64D", "#FF5370"],
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            legend: {
+                                position: 'bottom',
+                                offsetX: -10,
+                                offsetY: 0
+                            }
+                        }
+                    }],
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                        },
+                    },
+                    series: [{
+                        name: 'PRODUCT A',
+                        data: [44, 55, 41, 67, 22, 43]
+                    }, {
+                        name: 'PRODUCT B',
+                        data: [13, 23, 20, 8, 13, 27]
+                    }, {
+                        name: 'PRODUCT C',
+                        data: [11, 17, 15, 15, 21, 14]
+                    }, {
+                        name: 'PRODUCT D',
+                        data: [21, 7, 25, 13, 22, 8]
+                    }],
+                    xaxis: {
+                        type: 'datetime',
+                        categories: ['01/01/2011 GMT', '01/02/2011 GMT', '01/03/2011 GMT', '01/04/2011 GMT', '01/05/2011 GMT', '01/06/2011 GMT'],
+                    },
+                    legend: {
+                        position: 'right',
+                        offsetY: 40
+                    },
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            shade: 'light',
+                            type: "horizontal",
+                            shadeIntensity: 0.25,
+                            inverseColors: true,
+                            opacityFrom: 0.8,
+                            opacityTo: 1,
+                            stops: [0, 100]
+                        },
+                    },
+                };
+
+<!--                                                                                Equipment Predictor-->
+
+        function equip(){
+            $(".show-csv").hide();
+            $(".predictor-state").hide();
+            $(".dash-main").hide();
+            $(".predictor").show();
+            $(".predictor-equipment").show();
+            var equipment_history_date = {
+                        chart: {
+                            height: 300,
+                            type: 'line',
+                            zoom: {
+                                enabled: false
+                            },
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        stroke: {
+                            width: [5, 7, 5, 3],
+                            curve: 'smooth',
+                        },
+                        colors: ["#0e9e4a", "#FFB64D", "#FF5370", "#0F1370"],
+                        fill: {
+                            type: "gradient",
+                            gradient: {
+                                shade: 'light'
+                            },
+                        },
+                        series: [{
+                                name: "Session Duration",
+                                data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+                            },
+                            {
+                                name: "Page Views",
+                                data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35]
+                            },
+                            {
+                                name: 'Total Visits',
+                                data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
+                            },
+                            {
+                                name: '',
+                                data: []
+                            }
+                        ],
+                        title: {
+                            text: 'Page Statistics',
+                            align: 'left'
+                        },
+                        markers: {
+                            size: 0,
+
+                            hover: {
+                                sizeOffset: 6
+                            }
+                        },
+                        xaxis: {
+                            categories: [],
+                        },
+                        tooltip: {
+                            y: [{
+                                title: {
+                                    formatter: function(val) {
+                                        return val
+                                    }
+                                }
+                            }, {
+                                title: {
+                                    formatter: function(val) {
+                                        return val
+                                    }
+                                }
+                            }, {
+                                title: {
+                                    formatter: function(val) {
+                                        return val
+                                    }
+                                }
+                            }, {
+                                title: {
+                                    formatter: function(val) {
+                                        return val;
+                                    }
+                                }
+                            }]
+                        },
+                        grid: {
+                            borderColor: '#f1f1f1',
+                        }
+                    };
+
+            equipment_history_date['series'][0]['name'] = "Surgery";
+            equipment_history_date['series'][0]['data'] = {{ph_surgery|safe}};
+            equipment_history_date['series'][1]['name'] = "Scanner";
+            equipment_history_date['series'][1]['data'] = {{ph_scanner|safe}};
+            equipment_history_date['series'][2]['name'] = "Ventilator";
+            equipment_history_date['series'][2]['data'] = {{ph_ventilator|safe}};
+            equipment_history_date['series'][3]['name'] = "Microscope";
+            equipment_history_date['series'][3]['data'] = {{ph_microscope|safe}};
+            equipment_history_date['xaxis']['categories'] = {{ph_equip_date|safe}};
+            equipment_predictor['series'][0]['name'] = "Surgery";
+            equipment_predictor['series'][0]['data'] = {{p_surgery|safe}};
+            equipment_predictor['series'][1]['name'] = "Scanner";
+            equipment_predictor['series'][1]['data'] = {{p_scanner|safe}};
+            equipment_predictor['series'][2]['name'] = "Ventilator";
+            equipment_predictor['series'][2]['data'] = {{p_ventilator|safe}};
+            equipment_predictor['series'][3]['name'] = "Microscope";
+            equipment_predictor['series'][3]['data'] = {{p_microscope|safe}};
+            equipment_predictor['xaxis']['categories'] = {{p_equip_date|safe}};
+            $(function() {
+                    $("#equipment-history-date").empty();
+                    var chart = new ApexCharts(
+                        document.querySelector("#equipment-history-date"),
+                        equipment_history_date
+                    );
+                    chart.render();
+                });
+            $(function() {
+                $("#equipment-predictor").empty();
+                var chart = new ApexCharts(
+                    document.querySelector("#equipment-predictor"),
+                    equipment_predictor
+                );
+                chart.render();
+            });
+        }
+
+        $('#equipment_day_option').on('change', function() {
+            $.ajax({
+                      url : "/", // the endpoint,commonly same url
+                      type : "POST", // http method
+                      data : { option: this.value, name: "equip_day_option"},
+
+                          // handle a successful response
+                      success : function(json) {
+                          equipment_predictor['series'][0]['name'] = "Surgery";
+                            equipment_predictor['series'][0]['data'] = json.p_surgery;
+                            equipment_predictor['series'][1]['name'] = "Scanner";
+                            equipment_predictor['series'][1]['data'] = json.p_scanner;
+                            equipment_predictor['series'][2]['name'] = "Ventilator";
+                            equipment_predictor['series'][2]['data'] = json.p_ventilator;
+                            equipment_predictor['series'][3]['name'] = "Microscope";
+                            equipment_predictor['series'][3]['data'] = json.p_microscope;
+                            equipment_predictor['xaxis']['categories'] = json.p_equip_date;
+                          $("#equipment-predictor").empty();
+                          $(function() {
+                            var chart_state = new ApexCharts(
+                                document.querySelector("#equipment-predictor"),
+                                equipment_predictor
+                            );
+                            chart_state.render();
+                          });
+                      }
+            });
+        });
+
+        var state_history_date = {
+                        chart: {
+                            height: 300,
+                            type: 'line',
+                            zoom: {
+                                enabled: false
+                            },
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        stroke: {
+                            width: [5, 7, 5, 3],
+                            curve: 'smooth',
+                        },
+                        colors: ["#0e9e4a", "#FFB64D", "#FF5370", "#0F1370", "#231F4F"],
+                        fill: {
+                            type: "gradient",
+                            gradient: {
+                                shade: 'light'
+                            },
+                        },
+                        series: [{
+                                name: "Session Duration",
+                                data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+                            },
+                            {
+                                name: "Page Views",
+                                data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35]
+                            },
+                            {
+                                name: 'Total Visits',
+                                data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
+                            },
+                            {
+                                name: '',
+                                data: []
+                            },{
+                                name: '',
+                                data: []
+                            }],
+                        title: {
+                            text: 'Page Statistics',
+                            align: 'left'
+                        },
+                        markers: {
+                            size: 0,
+
+                            hover: {
+                                sizeOffset: 6
+                            }
+                        },
+                        xaxis: {
+                            categories: [],
+                        },
+                        tooltip: {
+                            y: [{
+                                title: {
+                                    formatter: function(val) {
+                                        return val
+                                    }
+                                }
+                            }, {
+                                title: {
+                                    formatter: function(val) {
+                                        return val
+                                    }
+                                }
+                            }, {
+                                title: {
+                                    formatter: function(val) {
+                                        return val
+                                    }
+                                }
+                            }, {
+                                title: {
+                                    formatter: function(val) {
+                                        return val;
+                                    }
+                                }
+                            }]
+                        },
+                        grid: {
+                            borderColor: '#f1f1f1',
+                        }
+                    };
+                    state_history_date['xaxis']['categories'] = {{ph_state_date|safe}};
+                    state_history_date['series'][0]['name'] = "Delhi";
+                    state_history_date['series'][0]['data'] = {{ph_delhi|safe}};
+                    state_history_date['series'][1]['name'] = "Uttar Pradesh";
+                    state_history_date['series'][1]['data'] = {{ph_up|safe}};
+                    state_history_date['series'][2]['name'] = "Maharastra";
+                    state_history_date['series'][2]['data'] = {{ph_maharastra|safe}};
+                    state_history_date['series'][3]['name'] = "Rajasthan";
+                    state_history_date['series'][3]['data'] = {{ph_rajasthan|safe}};
+                    state_history_date['series'][4]['name'] = "West Bengal";
+                    state_history_date['series'][4]['data'] = {{ph_bengal|safe}};
+                    var state_predictor = {
+                        chart: {
+                            height: 390,
+                            type: 'bar',
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: true,
+                                dataLabels: {
+                                    position: 'top',
+                                },
+                            }
+                        },
+                        colors: ["#4099ff", "#0e9e4a", "#32FA34", "#12F43F", "#134F24"],
+                        dataLabels: {
+                            enabled: true,
+                            offsetX: -6,
+                            style: {
+                                fontSize: '12px',
+                                colors: ['#fff']
+                            }
+                        },
+                        stroke: {
+                            show: true,
+                            width: .5,
+                            colors: ['#fff']
+                        },
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                shade: 'light',
+                                type: "horizontal",
+                                shadeIntensity: 0.25,
+                                inverseColors: true,
+                                opacityFrom: 0.8,
+                                opacityTo: 1,
+                                stops: [0, 100]
+                            },
+                        },
+                        series: [{
+                            name : "",
+                            data: [44, 55, 41, 64]
+                        }, {
+                            name: "",
+                            data: [53, 32, 33, 52]
+                        }, {
+                            name : "",
+                            data: [44, 55, 41, 64]
+                        }, {
+                            name : "",
+                            data: [44, 55, 41, 64]
+                        }, {
+                            name : "",
+                            data: [44, 55, 41, 64]
+                        }],
+                        xaxis: {
+                            categories: [2001, 2002, 2003, 2004],
+                        },
+                    };
+<!--                                                                                                state Predictor variable-->
+                    state_predictor['xaxis']['categories'] = {{p_state_date|safe}};
+                    state_predictor['series'][0]['name'] = "Delhi";
+                    state_predictor['series'][0]['data'] = {{p_delhi|safe}};
+                    state_predictor['series'][1]['name'] = "Uttar Pradesh";
+                    state_predictor['series'][1]['data'] = {{p_up|safe}};
+                    state_predictor['series'][2]['name'] = "Maharastra";
+                    state_predictor['series'][2]['data'] = {{p_maharastra|safe}};
+                    state_predictor['series'][3]['name'] = "Rajasthan";
+                    state_predictor['series'][3]['data'] = {{p_rajasthan|safe}};
+                    state_predictor['series'][4]['name'] = "West Bengal";
+                    state_predictor['series'][4]['data'] = {{p_bengal|safe}};
+
+        function state(){
+                    var values = [];
+                    $(".show-csv").hide();
+                    $(".dash-main").hide();
+                    $(".predictor-equipment").hide();
+                    $(".predictor").show();
+                    $(".predictor-state").show();
+                    $(function() {
+                        $("#state-history-date").empty();
+                        var chart = new ApexCharts(
+                            document.querySelector("#state-history-date"),
+                            state_history_date
+                        );
+                        chart.render();
+                    });
+                    $(function() {
+                        $("#state-predictor").empty();
+                        var chart_state = new ApexCharts(
+                            document.querySelector("#state-predictor"),
+                            state_predictor
+                        );
+                        chart_state.render();
+                    });
+
+        }
+        var countDownDate = new Date("{{last_scrap_date|safe}}").getTime();
+        var next_train_date = new Date("{{next_train|safe}}").getTime();
+        var x = setInterval(function() {
+
+          // Get today's date and time
+          var now = new Date().getTime();
+
+          // Find the distance between now and the count down date
+          var distance = (24*60*60*1000) + countDownDate - now;
+          var distance2 = next_train_date - now;
+
+          // Time calculations for days, hours, minutes and seconds
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          var days2 = Math.floor(distance2 / (1000 * 60 * 60 * 24));
+          var hours2 = Math.floor((distance2 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes2 = Math.floor((distance2 % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds2 = Math.floor((distance2 % (1000 * 60)) / 1000);
+
+          // Display the result in the element with id="demo"
+          document.getElementById("scrap_countdown").innerHTML = hours + "h"
+          + minutes + "m" + seconds + "s";
+          document.getElementById("train_countdown").innerHTML = days2 +"d"+ hours2 + "h"
+          + minutes2 + "m" + seconds2 + "s";
+
+          // If the count down is finished, write some text
+          if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("scrap_countdown").innerHTML = "EXPIRED";
+            document.getElementById("train_countdown").innerHTML = "EXPIRED";
+          }
+        }, 1000);
+        function getTimeDash(){
+            var today = new Date();
+            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            var now = today.getTime();
+            $("#time").html("").append(time);
+            $("#date").html("").append(date);
+            setTimeout(getTimeDash, 1000);
+        }
+        getTimeDash();
+
+        $('#state_day_option').on('change', function() {
+            $.ajax({
+                      url : "/", // the endpoint,commonly same url
+                      type : "POST", // http method
+                      data : { option: this.value, name: "state_day_option"},
+
+                          // handle a successful response
+                      success : function(json) {
+                          state_predictor['xaxis']['categories'] = json.p_state_date;
+                          state_predictor['series'][0]['name'] = "Delhi";
+                          state_predictor['series'][0]['data'] = json.p_delhi;
+                          state_predictor['series'][1]['name'] = "Uttar Pradesh";
+                          state_predictor['series'][1]['data'] = json.p_up;
+                          state_predictor['series'][2]['name'] = "Maharastra";
+                          state_predictor['series'][2]['data'] = json.p_maharastra;
+                          state_predictor['series'][3]['name'] = "Rajasthan";
+                          state_predictor['series'][3]['data'] = json.p_rajasthan;
+                          state_predictor['series'][4]['name'] = "West Bengal";
+                          state_predictor['series'][4]['data'] = json.p_bengal;
+                          $("#state-predictor").empty();
+                          $(function() {
+                            var chart_state = new ApexCharts(
+                                document.querySelector("#state-predictor"),
+                                state_predictor
+                            );
+                            chart_state.render();
+                          });
+                      }
+            });
+        });
+
+
+    </script>
+        <script src="/static/assets/js/pages/dashboard-main.js"></script>
+
+{% endblock javascripts %}
